@@ -3,7 +3,6 @@
 
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // GET ALL CATEGORIES
@@ -11,7 +10,7 @@ export const getAllCategories = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/category${buildQueryString(query)}`, {
+    return await serverFetch<any>(`/category${buildQueryString(query)}`, {
       revalidate: 300,
       tags: ["CATEGORY-LIST"],
     });
@@ -27,12 +26,11 @@ export const getAllCategories = async (
 // CREATE CATEGORY [multipart/form-data]
 export const createCategory = async (data: FormData | FieldValues): Promise<any> => {
   try {
-    const result = await serverFetch(`/category`, {
+    const result = await serverFetch<any>(`/category`, {
       method: "POST",
       body: data,
+      updateTag: "CATEGORY-LIST",
     });
-
-    if (result?.success) updateTag("CATEGORY-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -47,12 +45,11 @@ export const updateCategory = async (
   data: FormData | FieldValues
 ): Promise<any> => {
   try {
-    const result = await serverFetch(`/category/${id}`, {
+    const result = await serverFetch<any>(`/category/${id}`, {
       method: "PUT",
       body: data,
+      updateTag: "CATEGORY-LIST",
     });
-
-    if (result?.success) updateTag("CATEGORY-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -64,11 +61,10 @@ export const updateCategory = async (
 // DELETE CATEGORY
 export const deleteCategory = async (id: string): Promise<any> => {
   try {
-    const result = await serverFetch(`/category/${id}`, {
+    const result = await serverFetch<any>(`/category/${id}`, {
       method: "DELETE",
+      updateTag: "CATEGORY-LIST",
     });
-
-    if (result?.success) updateTag("CATEGORY-LIST");
     return result;
   } catch (error: unknown) {
     const message =

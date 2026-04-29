@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // GET ALL OUR TEAM (admin/superadmin)
@@ -10,7 +10,7 @@ export const getOurTeam = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/our-team-comp/retrieve${buildQueryString(query)}`, {
+    return await serverFetch<any>(`/our-team-comp/retrieve${buildQueryString(query)}`, {
       revalidate: 300,
       tags: ["OUR-TEAM"],
     });
@@ -26,12 +26,11 @@ export const getOurTeam = async (
 // CREATE OUR TEAM 
 export const createOurTeam = async (data: FormData | FieldValues) => {
   try {
-    const result = await serverFetch(`/our-team-comp/create`, {
+    const result = await serverFetch<any>(`/our-team-comp/create`, {
       method: "POST",
       body: data,
+      updateTag: "OUR-TEAM",
     });
-
-    if (result?.success) updateTag("OUR-TEAM");
     return result;
   } catch (error: unknown) {
     const message =
@@ -46,12 +45,11 @@ export const updateOurTeam = async (
   data: FieldValues
 ) => {
   try {
-    const result = await serverFetch(`/our-team-comp/update/${id}`, {
+    const result = await serverFetch<any>(`/our-team-comp/update/${id}`, {
       method: "PATCH",
       body: data,
+      updateTag: "OUR-TEAM",
     });
-
-    if (result?.success) updateTag("OUR-TEAM");
     return result;
   } catch (error: unknown) {
     const message =
@@ -63,11 +61,10 @@ export const updateOurTeam = async (
 // DELETE OUR TEAM (superadmin only)
 export const deleteOurTeam = async (id: string) => {
   try {
-    const result = await serverFetch(`/our-team-comp/delete/${id}`, {
+    const result = await serverFetch<any>(`/our-team-comp/delete/${id}`, {
       method: "DELETE",
+      updateTag: "OUR-TEAM",
     });
-
-    if (result?.success) updateTag("OUR-TEAM");
     return result;
   } catch (error: unknown) {
     const message =

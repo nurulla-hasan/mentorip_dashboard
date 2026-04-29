@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // GET ALL ADMINS (admin/superadmin)
@@ -10,7 +10,7 @@ export const getAllAdmins = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/admin${buildQueryString(query)}`, {
+    return await serverFetch<any>(`/admin${buildQueryString(query)}`, {
       revalidate: 300,
       tags: ["ADMIN-LIST"],
     });
@@ -26,12 +26,11 @@ export const getAllAdmins = async (
 // CREATE ADMIN (superadmin only)
 export const createAdmin = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/admin`, {
+    const result = await serverFetch<any>(`/admin`, {
       method: "POST",
       body: data,
+      updateTag: "ADMIN-LIST",
     });
-
-    if (result?.success) updateTag("ADMIN-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -46,12 +45,11 @@ export const updateAdmin = async (
   data: FieldValues
 ) => {
   try {
-    const result = await serverFetch(`/admin/${id}`, {
+    const result = await serverFetch<any>(`/admin/${id}`, {
       method: "PATCH",
       body: data,
+      updateTag: "ADMIN-LIST",
     });
-
-    if (result?.success) updateTag("ADMIN-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -63,11 +61,10 @@ export const updateAdmin = async (
 // DELETE ADMIN (superadmin only)
 export const deleteAdmin = async (id: string) => {
   try {
-    const result = await serverFetch(`/admin/${id}`, {
+    const result = await serverFetch<any>(`/admin/${id}`, {
       method: "DELETE",
+      updateTag: "ADMIN-LIST",
     });
-
-    if (result?.success) updateTag("ADMIN-LIST");
     return result;
   } catch (error: unknown) {
     const message =

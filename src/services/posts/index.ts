@@ -3,7 +3,6 @@
 
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // GET ALL POSTS
@@ -11,7 +10,7 @@ export const getAllPosts = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/post/admin/all${buildQueryString(query)}`, { 
+    return await serverFetch<any>(`/post/admin/all${buildQueryString(query)}`, { 
       revalidate: 300,
       tags: ["POST-LIST"],
     });
@@ -27,7 +26,7 @@ export const getAllPosts = async (
 // GET POST BY SLUG (published only)
 export const getPostBySlug = async (slug: string): Promise<any> => {
   try {
-    return await serverFetch(`/post/${slug}`, {});
+    return await serverFetch<any>(`/post/${slug}`, {});
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : "Failed to load post";
@@ -38,12 +37,11 @@ export const getPostBySlug = async (slug: string): Promise<any> => {
 // CREATE POST (admin/superadmin) [multipart/form-data]
 export const createPost = async (data: FieldValues): Promise<any> => {
   try {
-    const result = await serverFetch(`/post`, {
+    const result = await serverFetch<any>(`/post`, {
       method: "POST",
       body: data,
+      updateTag: "POST-LIST",
     });
-
-    if (result?.success) updateTag("POST-LIST");
     return result;
   } catch (error: unknown) {
     console.error(error);
@@ -58,12 +56,11 @@ export const updatePost = async (
   data: FieldValues
 ): Promise<any> => {
   try {
-    const result = await serverFetch(`/post/${id}`, {
+    const result = await serverFetch<any>(`/post/${id}`, {
       method: "PATCH",
       body: data,
+      updateTag: "POST-LIST",
     });
-
-    if (result?.success) updateTag("POST-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -75,11 +72,10 @@ export const updatePost = async (
 // DELETE POST (admin/superadmin)
 export const deletePost = async (id: string): Promise<any> => {
   try {
-    const result = await serverFetch(`/post/${id}`, {
+    const result = await serverFetch<any>(`/post/${id}`, {
       method: "DELETE",
+      updateTag: "POST-LIST",
     });
-
-    if (result?.success) updateTag("POST-LIST");
     return result;
   } catch (error: unknown) {
     const message =

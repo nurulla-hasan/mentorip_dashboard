@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // RETRIEVE WHO WE ARE DATA
 export const getWhoWeAre = async () => {
   try {
-    return await serverFetch(`/about-who-we-are-comp/retrieve`, {
+    return await serverFetch<any>(`/about-who-we-are-comp/retrieve`, {
       revalidate: 300,
       tags: ["WHO-WE-ARE-COMP"],
     });
@@ -22,12 +22,11 @@ export const getWhoWeAre = async () => {
 // UPSERT (CREATE OR UPDATE) WHO WE ARE DATA
 export const upsertWhoWeAre = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/about-who-we-are-comp/create-or-update`, {
+    const result = await serverFetch<any>(`/about-who-we-are-comp/create-or-update`, {
       method: "PUT",
       body: data,
+      updateTag: "WHO-WE-ARE-COMP",
     });
-
-    if (result?.success) updateTag("WHO-WE-ARE-COMP");
     return result;
   } catch (error: unknown) {
     const message =

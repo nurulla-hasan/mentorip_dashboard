@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { IDashboardResponse } from "@/types/dashboard.types";
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // GET ALL USERS (admin/superadmin)
@@ -11,7 +11,7 @@ export const getAllUsers = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/user/admin-get-all${buildQueryString(query)}`, {
+    return await serverFetch<any>(`/user/admin-get-all${buildQueryString(query)}`, {
       revalidate: 300,
       tags: ["USER-LIST"],
     });
@@ -27,7 +27,7 @@ export const getAllUsers = async (
 // GET ADMIN META DATA
 export const getAdminMetaData = async (): Promise<IDashboardResponse> => {
   try {
-    return await serverFetch(`/user/meta-data`, {
+    return await serverFetch<any>(`/user/meta-data`, {
       revalidate: 300,
       tags: ["USER-META"],
     });
@@ -52,15 +52,11 @@ export const getAdminMetaData = async (): Promise<IDashboardResponse> => {
 // UPDATE USER DATA (admin/superadmin)
 export const updateUserData = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/user/update-user-data`, {
+    const result = await serverFetch<any>(`/user/update-user-data`, {
       method: "PATCH",
       body: data,
+      updateTag: ["USER-LIST", "USER-META"],
     });
-
-    if (result?.success) {
-      updateTag("USER-LIST");
-      updateTag("USER-META");
-    }
     return result;
   } catch (error: unknown) {
     const message =

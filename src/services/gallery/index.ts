@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 
 // GET ALL GALLERY IMAGES
 export const getAllGalleryImages = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/gallery/retrieve${buildQueryString(query)}`, {
+    return await serverFetch<any>(`/gallery/retrieve${buildQueryString(query)}`, {
       revalidate: 300,
       tags: ["GALLERY-LIST"],
     });
@@ -24,12 +24,12 @@ export const getAllGalleryImages = async (
 // CREATE GALLERY IMAGE
 export const createGalleryImage = async (data: FormData) => {
   try {
-    const result = await serverFetch(`/gallery/create`, {
+    const result = await serverFetch<any>(`/gallery/create`, {
       method: "POST",
       body: data,
+      updateTag: "GALLERY-LIST",
     });
 
-    if (result?.success) updateTag("GALLERY-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -41,11 +41,11 @@ export const createGalleryImage = async (data: FormData) => {
 // DELETE GALLERY IMAGE
 export const deleteGalleryImage = async (id: string) => {
   try {
-    const result = await serverFetch(`/gallery/${id}`, {
+    const result = await serverFetch<any>(`/gallery/${id}`, {
       method: "DELETE",
+      updateTag: "GALLERY-LIST",
     });
 
-    if (result?.success) updateTag("GALLERY-LIST");
     return result;
   } catch (error: unknown) {
     const message =

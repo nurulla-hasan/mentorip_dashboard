@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { serverFetch } from "@/lib/fetcher";
@@ -10,7 +11,7 @@ import { FieldValues } from "react-hook-form";
  */
 export const getPageByType = async (type: string) => {
   try {
-    return await serverFetch(`/page/retrieve/${type}`, {
+    return await serverFetch<any>(`/page/retrieve/${type}`, {
       revalidate: 3600, // Pages don't change often, so 1 hour cache is fine
       tags: [`PAGE-${type.toUpperCase()}`],
     });
@@ -28,7 +29,7 @@ export const getPageByType = async (type: string) => {
  */
 export const upsertPage = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/page/create-or-update`, {
+    const result = await serverFetch<any>(`/page/create-or-update`, {
       method: "PUT",
       body: data,
     });

@@ -9,9 +9,10 @@ import { serverFetch } from '@/lib/fetcher';
 // signInUser (With Role Check)
 export const signInUser = async (userData: FieldValues): Promise<any> => {
   try {
-    const result = await serverFetch('/user/signin', {
+    const result = await serverFetch<any>('/user/signin', {
       method: 'POST',
       body: userData,
+      isPublic: true,
     });
 
     if (result?.success) {
@@ -40,7 +41,7 @@ export const signInUser = async (userData: FieldValues): Promise<any> => {
 // updateProfilePhoto
 export const updateProfilePhoto = async (data: FormData): Promise<any> => {
   try {
-    const result = await serverFetch('/user/update-profile-photo', {
+    const result = await serverFetch<any>('/user/update-profile-photo', {
       method: 'PUT',
       body: data, // FormData Handle by serverFetch
     });
@@ -58,7 +59,7 @@ export const updateProfilePhoto = async (data: FormData): Promise<any> => {
 // changePassword
 export const changePassword = async (data: FieldValues): Promise<any> => {
   try {
-    const result = await serverFetch('/user/change-password', {
+    const result = await serverFetch<any>('/user/change-password', {
       method: 'PATCH',
       body: data,
     });
@@ -78,9 +79,10 @@ export const changePassword = async (data: FieldValues): Promise<any> => {
 // forgotPassword
 export const forgotPassword = async (email: string): Promise<any> => {
   try {
-    const result = await serverFetch('/user/forgot-password', {
+    const result = await serverFetch<any>('/user/forgot-password', {
       method: 'POST',
       body: { email },
+      isPublic: true,
     });
 
     if (result?.success) {
@@ -99,9 +101,10 @@ export const sendForgotPasswordOtpAgain = async (): Promise<any> => {
   const token = cookieStore.get('forgotPassToken')?.value;
 
   try {
-    const result = await serverFetch('/user/send-forgot-password-otp-again', {
+    const result = await serverFetch<any>('/user/send-forgot-password-otp-again', {
       method: 'POST',
       body: { token },
+      isPublic: true,
     });
 
     return result;
@@ -116,9 +119,10 @@ export const verifyOtpForForgotPassword = async (otp: string): Promise<any> => {
   const token = cookieStore.get('forgotPassToken')?.value;
 
   try {
-    const result = await serverFetch('/user/verify-forgot-password-otp', {
+    const result = await serverFetch<any>('/user/verify-forgot-password-otp', {
       method: 'POST',
       body: { token, otp },
+      isPublic: true,
     });
 
     if (result?.success) {
@@ -137,9 +141,10 @@ export const setNewPassword = async (newPassword: string): Promise<any> => {
   const resetPasswordToken = cookieStore.get('resetPasswordToken')?.value;
 
   try {
-    const result = await serverFetch('/user/reset-password', {
+    const result = await serverFetch<any>('/user/reset-password', {
       method: 'POST',
       body: { resetPasswordToken, newPassword },
+      isPublic: true,
     });
 
     if (result?.success) {
@@ -156,7 +161,7 @@ export const setNewPassword = async (newPassword: string): Promise<any> => {
 // fetchMyProfile
 export const fetchMyProfile = async (): Promise<any> => {
   try {
-    return await serverFetch('/user/profile', { method: 'GET' });
+    return await serverFetch<any>('/user/profile', { method: 'GET' });
   } catch (error: any) {
     return { success: false, message: error?.message };
   }
@@ -184,7 +189,7 @@ export const getNewAccessToken = async (refreshToken: string): Promise<any> => {
 // updateUserData
 export const updateUserData = async (userData: FieldValues): Promise<any> => {
   try {
-    const result = await serverFetch('/user/update-user-data', {
+    const result = await serverFetch<any>('/user/update-user-data', {
       method: 'PATCH',
       body: userData,
     });

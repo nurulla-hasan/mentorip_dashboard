@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
-import { updateTag } from "next/cache";
 import { FieldValues } from "react-hook-form";
 
 // GET ALL CONTACT MESSAGES (admin/superadmin)
@@ -10,7 +10,7 @@ export const getAllContacts = async (
   query: Record<string, string | string[] | undefined> = {}
 ) => {
   try {
-    return await serverFetch(`/contact${buildQueryString(query)}`, {
+    return await serverFetch<any>(`/contact${buildQueryString(query)}`, {
       revalidate: 300,
       tags: ["CONTACT-LIST"],
     });
@@ -26,12 +26,11 @@ export const getAllContacts = async (
 // SEND CONTACT MESSAGE (public)
 export const sendContactEmail = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/contact/send-email`, {
+    const result = await serverFetch<any>(`/contact/send-email`, {
       method: "POST",
       body: data,
+      updateTag: "CONTACT-LIST",
     });
-
-    if (result?.success) updateTag("CONTACT-LIST");
     return result;
   } catch (error: unknown) {
     const message =
@@ -43,7 +42,7 @@ export const sendContactEmail = async (data: FieldValues) => {
 // RETRIEVE OFFICE CARDS DATA
 export const getOfficeCards = async () => {
   try {
-    return await serverFetch(`/office-cards-comp/retrieve`, {
+    return await serverFetch<any>(`/office-cards-comp/retrieve`, {
       revalidate: 300,
       tags: ["OFFICE-CARDS-COMP"],
     });
@@ -58,12 +57,11 @@ export const getOfficeCards = async () => {
 // UPSERT (CREATE OR UPDATE) OFFICE CARDS DATA
 export const upsertOfficeCards = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/office-cards-comp/create-or-update`, {
+    const result = await serverFetch<any>(`/office-cards-comp/create-or-update`, {
       method: "PUT",
       body: data,
+      updateTag: "OFFICE-CARDS-COMP",
     });
-
-    if (result?.success) updateTag("OFFICE-CARDS-COMP");
     return result;
   } catch (error: unknown) {
     const message =
@@ -75,7 +73,7 @@ export const upsertOfficeCards = async (data: FieldValues) => {
 // GET HOTLINE AND SOCIALS
 export const getHotlineAndSocials = async () => {
   try {
-    return await serverFetch(`/contact-us-comp/retrieve`, {
+    return await serverFetch<any>(`/contact-us-comp/retrieve`, {
       revalidate: 300,
       tags: ["HOTLINE-AND-SOCIALS"],
     });
@@ -90,12 +88,11 @@ export const getHotlineAndSocials = async () => {
 // UPSERT (CREATE OR UPDATE) HOTLINE AND SOCIALS
 export const upsertHotlineAndSocials = async (data: FieldValues) => {
   try {
-    const result = await serverFetch(`/contact-us-comp/create-or-update`, {
+    const result = await serverFetch<any>(`/contact-us-comp/create-or-update`, {
       method: "PUT",
       body: data,
+      updateTag: "HOTLINE-AND-SOCIALS",
     });
-
-    if (result?.success) updateTag("HOTLINE-AND-SOCIALS");
     return result;
   } catch (error: unknown) {
     const message =
