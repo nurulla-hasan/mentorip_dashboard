@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mentor IP Dashboard",
+  title: "MentorIP Dashboard",
   description:
     "Comprehensive dashboard for managing Mentor IP resources and analytics.",
 };
