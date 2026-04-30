@@ -21,5 +21,6 @@ export interface Post {
   category: string | Category; // Can be ID string or populated object
   views: number;
   status: PostStatus | string;
+  isFeatured: boolean;
 }
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Loader2, Trash2 } from "lucide-react";
 
+import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -162,9 +163,21 @@ export const insightsPostsColumns: ColumnDef<Post>[] = [
     header: "Post Title",
     cell: ({ row }) => (
       <div className="space-y-1">
-        <p className="font-medium max-w-75 truncate">
-          {row.original.title}
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="font-medium max-w-75 truncate">
+            {row.original.title}
+          </p>
+          {row.original.isFeatured && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                </TooltipTrigger>
+                <TooltipContent>Featured Post</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
         {row.original.subtitle && (
           <p className="text-xs text-muted-foreground max-w-75 truncate">
             {row.original.subtitle}
@@ -196,6 +209,18 @@ export const insightsPostsColumns: ColumnDef<Post>[] = [
         <Badge className={`inline-flex rounded border-none capitalize ${statusBadgeClass(status)}`}>
           {status}
         </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
+    cell: ({ row }) => {
+      const isFeatured = row.original.isFeatured;
+      return isFeatured ? (
+        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+      ) : (
+        <span className="text-muted-foreground text-sm">-</span>
       );
     },
   },

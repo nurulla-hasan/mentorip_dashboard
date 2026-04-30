@@ -9,6 +9,7 @@ import * as z from "zod";
 import { Upload, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     Form,
     FormControl,
@@ -45,6 +46,7 @@ const formSchema = z.object({
     readTime: z.string().optional(),
     content: z.string().min(1, "Content is required"),
     post: z.any().optional(), // For the file
+  isFeatured: z.boolean().optional(),
 });
 
 interface EditInsightFormProps {
@@ -74,6 +76,7 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
             readTime: post?.readTime || "",
             content: post?.content || "",
             post: undefined,
+            isFeatured: post?.isFeatured || false,
         },
     });
 
@@ -91,6 +94,7 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
                 tag: values.tag ? values.tag.split(",").map((t) => t.trim()).filter(Boolean) : [],
                 readTime: values.readTime,
                 content: values.content,
+                isFeatured: values.isFeatured || false,
             };
 
             formData.append("data", JSON.stringify(postData));
@@ -300,6 +304,23 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
                                                     className="bg-background"
                                                 />
                                             </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    control={form.control}
+                                    name="isFeatured"
+                                    render={({ field }) => (
+                                        <FormItem className="flex flex-row items-center gap-2 space-y-0">
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value}
+                                                    onCheckedChange={field.onChange}
+                                                />
+                                            </FormControl>
+                                            <FormLabel>Featured Post</FormLabel>
                                             <FormMessage />
                                         </FormItem>
                                     )}
