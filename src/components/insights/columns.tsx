@@ -4,8 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye, Loader2, Trash2 } from "lucide-react";
-
-import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -164,22 +162,12 @@ export const insightsPostsColumns: ColumnDef<Post>[] = [
     cell: ({ row }) => (
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <p className="font-medium max-w-75 truncate">
+          <p className="font-medium max-w-45 truncate">
             {row.original.title}
           </p>
-          {row.original.isFeatured && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                </TooltipTrigger>
-                <TooltipContent>Featured Post</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
         </div>
         {row.original.subtitle && (
-          <p className="text-xs text-muted-foreground max-w-75 truncate">
+          <p className="text-xs text-muted-foreground max-w-45 truncate">
             {row.original.subtitle}
           </p>
         )}
@@ -217,8 +205,11 @@ export const insightsPostsColumns: ColumnDef<Post>[] = [
     header: "Featured",
     cell: ({ row }) => {
       const isFeatured = row.original.isFeatured;
+      const order = row.original.featuredOrder;
       return isFeatured ? (
-        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+        <Badge variant="outline" className="bg-yellow-500/10 text-yellow-600 border-yellow-500/50 text-[10px] h-5 px-1.5 font-bold">
+          Rank {order}
+        </Badge>
       ) : (
         <span className="text-muted-foreground text-sm">-</span>
       );
