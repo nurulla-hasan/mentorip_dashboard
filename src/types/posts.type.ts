@@ -22,5 +22,6 @@ export interface Post {
   views: number;
   status: PostStatus | string;
   isFeatured: boolean;
+  featuredOrder?: number;
 }
 

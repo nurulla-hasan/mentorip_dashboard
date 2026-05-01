@@ -9,7 +9,8 @@ import * as z from "zod";
 import { Upload, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import { Star } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -48,6 +49,7 @@ const formSchema = z.object({
   content: z.string().min(1, "Content is required"),
   post: z.any().optional(), // For the file
   isFeatured: z.boolean().optional(),
+  featuredOrder: z.string().optional(),
 });
 
 export default function NewInsightPage() {
@@ -69,8 +71,11 @@ export default function NewInsightPage() {
       content: "",
       post: undefined,
       isFeatured: false,
+      featuredOrder: "",
     },
   });
+
+  const isFeatured = form.watch("isFeatured");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -106,6 +111,7 @@ export default function NewInsightPage() {
         readTime: values.readTime,
         content: values.content,
         isFeatured: values.isFeatured || false,
+        featuredOrder: values.isFeatured ? Number(values.featuredOrder) : undefined,
       };
 
       formData.append("data", JSON.stringify(postData));
@@ -322,22 +328,64 @@ export default function NewInsightPage() {
                   )}
                 />
 
-                <FormField
-                  control={form.control}
-                  name="isFeatured"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center gap-2 space-y-0">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <FormLabel>Featured Post</FormLabel>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="col-span-full mt-2 p-4 rounded-xl border border-primary/20 bg-primary/5 flex items-center justify-between gap-4 transition-all duration-300">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Star className={`h-5 w-5 ${isFeatured ? 'fill-primary text-primary' : 'text-muted-foreground'}`} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold">Featured Insight</p>
+                      <p className="text-xs text-muted-foreground">Highlight this post on the homepage</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-6">
+                    <FormField
+                      control={form.control}
+                      name="isFeatured"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center space-y-0">
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+
+                    {isFeatured && (
+                      <FormField
+                        control={form.control}
+                        name="featuredOrder"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-center gap-2 space-y-0 animate-in fade-in slide-in-from-right-4 duration-300">
+                            <FormLabel className="shrink-0 text-[10px] font-black uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded">Pos:</FormLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="bg-background h-9 w-28 border-primary/30 font-bold">
+                                  <SelectValue placeholder="No" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {[1, 2, 3, 4, 5].map((num) => (
+                                  <SelectItem key={num} value={num.toString()}>
+                                    Rank {num}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* --- IMAGE UPLOAD (Right 1 Column) --- */}

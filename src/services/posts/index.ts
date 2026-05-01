@@ -26,7 +26,9 @@ export const getAllPosts = async (
 // GET POST BY SLUG (published only)
 export const getPostBySlug = async (slug: string): Promise<any> => {
   try {
-    return await serverFetch<any>(`/post/${slug}`, {});
+    return await serverFetch<any>(`/post/${slug}`, {
+      revalidate: 0, // Disable cache for editing
+    });
   } catch (error: unknown) {
     const message =
       error instanceof Error ? error.message : "Failed to load post";
