@@ -5,6 +5,16 @@ import { buildQueryString } from "@/lib/buildQueryString";
 import { serverFetch } from "@/lib/fetcher";
 import { FieldValues } from "react-hook-form";
 
+const WEBSITE_URL = process.env.NEXT_PUBLIC_WEBSITE_URL || "http://localhost:3000";
+
+const triggerWebsiteRevalidate = async (tag: string) => {
+  try {
+    await fetch(`${WEBSITE_URL}/api/revalidate?tag=${tag}`, { method: "GET" });
+  } catch (error) {
+    console.error("Failed to trigger website revalidate:", error);
+  }
+};
+
 // GET ALL POSTS
 export const getAllPosts = async (
   query: Record<string, string | string[] | undefined> = {}
@@ -44,6 +54,9 @@ export const createPost = async (data: FieldValues): Promise<any> => {
       body: data,
       updateTag: "POST-LIST",
     });
+    if (result?.success) {
+      await triggerWebsiteRevalidate("POST-LIST");
+    }
     return result;
   } catch (error: unknown) {
     console.error(error);
@@ -63,6 +76,9 @@ export const updatePost = async (
       body: data,
       updateTag: "POST-LIST",
     });
+    if (result?.success) {
+      await triggerWebsiteRevalidate("POST-LIST");
+    }
     return result;
   } catch (error: unknown) {
     const message =
@@ -78,6 +94,9 @@ export const deletePost = async (id: string): Promise<any> => {
       method: "DELETE",
       updateTag: "POST-LIST",
     });
+    if (result?.success) {
+      await triggerWebsiteRevalidate("POST-LIST");
+    }
     return result;
   } catch (error: unknown) {
     const message =
