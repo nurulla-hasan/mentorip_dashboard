@@ -1,4 +1,3 @@
-
 import { cookies } from "next/headers";
 import { revalidateTag, updateTag } from "next/cache";
 
@@ -8,12 +7,12 @@ type ServerFetchOptions = Omit<RequestInit, "body"> & {
   persistCookies?: boolean;
   revalidate?: number | false;
   tags?: string[];
-  /** 
+  /**
    * "updateTag": Immediate expiration (Best for Server Actions)
    * "revalidateTag": Stale-while-revalidate (Best for background updates)
    */
   invalidateMode?: "updateTag" | "revalidateTag";
-  updateTag?: string | string[]; 
+  updateTag?: string | string[];
   next?: NextFetchRequestConfig;
 };
 
@@ -24,20 +23,20 @@ export type ApiError = Error & {
 
 export const serverFetch = async <T = unknown>(
   endpoint: string,
-  options: ServerFetchOptions = {}
+  options: ServerFetchOptions = {},
 ): Promise<T | null> => {
-  const { 
-    isPublic = false, 
-    body: rawBody, 
-    headers, 
-    method = "GET", 
-    revalidate = 3600, 
+  const {
+    isPublic = false,
+    body: rawBody,
+    headers,
+    method = "GET",
+    revalidate = 3600,
     updateTag: tagsToInvalidate,
-    invalidateMode = "updateTag", 
-    tags, 
+    invalidateMode = "updateTag",
+    tags,
     next,
     persistCookies = false,
-    ...rest 
+    ...rest
   } = options;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_API;
@@ -71,27 +70,26 @@ export const serverFetch = async <T = unknown>(
       headers: { ...defaultHeaders, ...headers },
       next: {
         revalidate,
-        tags, 
+        tags,
         ...next,
       },
     });
 
     // New Multi-Argument Invalidation Logic
     if (res.ok && tagsToInvalidate) {
-      const tagList = Array.isArray(tagsToInvalidate) ? tagsToInvalidate : [tagsToInvalidate];
-      
-      tagList.forEach(tag => {
+      const tagList = Array.isArray(tagsToInvalidate)
+        ? tagsToInvalidate
+        : [tagsToInvalidate];
+
+      tagList.forEach((tag) => {
         try {
           if (invalidateMode === "updateTag") {
-            // Newest standard for immediate UI updates
             updateTag(tag);
           } else {
-            // Required 2 arguments: tag and profile ("max" is recommended)
-            revalidateTag(tag, "max"); 
+            revalidateTag(tag, { expire: 0 });
           }
         } catch {
-          // Fallback if updateTag is called outside Server Action context
-          revalidateTag(tag, "max");
+          revalidateTag(tag, { expire: 0 });
         }
       });
     }
@@ -108,7 +106,7 @@ export const serverFetch = async <T = unknown>(
         const trimmedName = name.trim();
         const value = valueParts.join("=");
 
-        if (trimmedName === 'accessToken' || trimmedName === 'refreshToken') {
+        if (trimmedName === "accessToken" || trimmedName === "refreshToken") {
           try {
             cookieStore.set(trimmedName, value, {
               httpOnly: true,
@@ -125,13 +123,16 @@ export const serverFetch = async <T = unknown>(
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => null);
-      const error = new Error(errorData?.message || `HTTP ${res.status}`) as ApiError;
+      const error = new Error(
+        errorData?.message || `HTTP ${res.status}`,
+      ) as ApiError;
       error.status = res.status;
       error.data = errorData;
       throw error;
     }
 
-    if (res.status === 204 || res.headers.get("content-length") === "0") return null;
+    if (res.status === 204 || res.headers.get("content-length") === "0")
+      return null;
 
     return res.json();
   } catch (error) {
