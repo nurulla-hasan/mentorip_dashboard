@@ -100,8 +100,8 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
                 tag: values.tag ? values.tag.split(",").map((t) => t.trim()).filter(Boolean) : [],
                 readTime: values.readTime,
                 content: values.content,
-                isFeatured: values.isFeatured || false,
-                featuredOrder: values.isFeatured ? Number(values.featuredOrder) : undefined,
+                isFeatured: !!values.isFeatured,
+                featuredOrder: values.isFeatured ? Number(values.featuredOrder) : null,
             };
 
             formData.append("data", JSON.stringify(postData));
@@ -114,6 +114,7 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
 
             if (res.success) {
                 SuccessToast("Insight updated successfully!");
+                router.refresh();
                 // router.push("/insights");
             } else {
                 ErrorToast(res.message || "Something went wrong");

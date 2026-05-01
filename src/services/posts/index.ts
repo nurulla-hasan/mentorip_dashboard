@@ -98,7 +98,7 @@ export const createPost = async (
   data: FieldValues
 ): Promise<ActionResponse> => {
   try {
-    const result = await serverFetch<any>(`/post`, {
+    const result = await serverFetch<any>(`/post?v=${Date.now()}`, {
       method: "POST",
       body: data,
       updateTag: POST_LIST_TAG,
@@ -125,7 +125,7 @@ export const updatePost = async (
   data: FieldValues
 ): Promise<ActionResponse> => {
   try {
-    const result = await serverFetch<any>(`/post/${id}`, {
+    const result = await serverFetch<any>(`/post/${id}?v=${Date.now()}`, {
       method: "PATCH",
       body: data,
       updateTag: POST_LIST_TAG,
@@ -147,7 +147,7 @@ export const updatePost = async (
 // DELETE POST (admin/superadmin)
 export const deletePost = async (id: string): Promise<ActionResponse> => {
   try {
-    const result = await serverFetch<any>(`/post/${id}`, {
+    const result = await serverFetch<any>(`/post/${id}?v=${Date.now()}`, {
       method: "DELETE",
       updateTag: POST_LIST_TAG,
     });
