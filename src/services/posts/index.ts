@@ -33,7 +33,7 @@ async function revalidateWebsitePosts() {
   }
 
   try {
-    const res = await fetch(`${websiteUrl}/api/revalidate`, {
+    const res = await fetch(`${websiteUrl}/api/revalidate-site`, {
       method: "POST",
       headers: {
         "x-revalidate-secret": secret,
