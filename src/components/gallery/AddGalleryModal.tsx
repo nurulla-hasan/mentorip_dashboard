@@ -101,7 +101,7 @@ export function AddGalleryModal() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>Add Gallery Image</DialogTitle>
           <DialogDescription>

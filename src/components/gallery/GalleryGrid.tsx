@@ -1,45 +1,48 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-// import { Trash2 } from "lucide-react";
-// import { Button } from "@/components/ui/button";
+import { Trash2, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { GalleryImage } from "@/types/gallery.types";
-// import { deleteGalleryImage } from "@/services/gallery";
-// import { SuccessToast, ErrorToast } from "@/lib/utils";
-// import { useRouter } from "next/navigation";
-// import {
-//   AlertDialog,
-//   AlertDialogAction,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog";
+import { deleteGalleryImage } from "@/services/gallery";
+import { SuccessToast, ErrorToast } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface GalleryGridProps {
   images: GalleryImage[];
 }
 
 export function GalleryGrid({ images }: GalleryGridProps) {
-  // const router = useRouter();
 
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     const res = await deleteGalleryImage(id);
-  //     if (res.success) {
-  //       SuccessToast("Image deleted successfully");
-  //       router.refresh();
-  //     } else {
-  //       ErrorToast(res.message || "Failed to delete image");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     ErrorToast("An unexpected error occurred");
-  //   }
-  // };
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const handleDelete = async (id: string) => {
+    setDeletingId(id);
+    try {
+      const res = await deleteGalleryImage(id);
+      if (res.success) {
+        SuccessToast("Image deleted successfully");
+      } else {
+        ErrorToast(res.message || "Failed to delete image");
+      }
+    } catch (error) {
+      console.error(error);
+      ErrorToast("An unexpected error occurred");
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   if (!images?.length) {
     return (
@@ -65,7 +68,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
             />
           ) : null}
           
-          {/* <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity group-hover:opacity-100 flex items-center justify-center">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button
@@ -87,15 +90,26 @@ export function GalleryGrid({ images }: GalleryGridProps) {
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => handleDelete(image._id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDelete(image._id);
+                    }}
+                    disabled={deletingId === image._id}
                     className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                   >
-                    Delete
+                    {deletingId === image._id ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      "Delete"
+                    )}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </div> */}
+          </div>
         </div>
       ))}
     </div>
