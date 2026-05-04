@@ -69,7 +69,7 @@ export default async function WeServePage() {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-foreground">
             {initialValues.title}
           </h2>
-          <p className="max-w-3xl mx-auto text-sm md:text-base text-muted-foreground italic">
+          <p className="max-w-3xl mx-auto text-sm md:text-base text-muted-foreground">
             {initialValues.subtitle}
           </p>
         </div>
@@ -80,7 +80,7 @@ export default async function WeServePage() {
                <div className="mb-4 p-3 bg-muted/30 w-fit rounded-xl">
                  <DynamicIcon name={card.iconName || "Icon"} className="w-6 h-6 text-primary" />
                </div>
-               <h3 className="font-bold text-lg mb-2 italic">{card.title || `Industry ${index + 1}`}</h3>
+               <h3 className="font-bold text-lg mb-2">{card.title || `Industry ${index + 1}`}</h3>
                <p className="text-sm text-muted-foreground">{card.description || "Description..."}</p>
             </div>
           ))}

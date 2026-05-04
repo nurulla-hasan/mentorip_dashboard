@@ -75,7 +75,7 @@ export default async function ClienteleEditorPage() {
                 key={index}
                 className="flex flex-col justify-between rounded-3xl border border-slate-200 bg-card px-8 py-6 shadow-sm"
               >
-                <div className="text-3xl font-extrabold tracking-tight text-foreground">
+                <div className="text-3xl font-bold tracking-tight text-foreground">
                   {stat.value}
                 </div>
                 <div className="mt-3 text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground">

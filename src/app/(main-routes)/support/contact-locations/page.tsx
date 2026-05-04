@@ -130,7 +130,7 @@ export default async function ContactLocationsEditorPage() {
 
                 {/* Content */}
                 <div className="mt-6 space-y-3">
-                  <h3 className="text-2xl font-black italic tracking-tight uppercase">
+                  <h3 className="text-2xl font-bold tracking-tight uppercase">
                     {location.officeName}
                   </h3>
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -173,7 +173,7 @@ export default async function ContactLocationsEditorPage() {
             {/* Hotlines Card */}
             <Card className="rounded-4xl shadow-none bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl font-black italic uppercase tracking-tight text-emerald-700 dark:text-emerald-400">
+                <CardTitle className="flex items-center gap-3 text-xl font-bold uppercase tracking-tight text-emerald-700 dark:text-emerald-400">
                   <LucideIcons.PhoneCall className="h-6 w-6" />
                   Hotlines
                 </CardTitle>
@@ -195,7 +195,7 @@ export default async function ContactLocationsEditorPage() {
             {/* Social Links Card */}
             <Card className="rounded-4xl shadow-none bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl font-black italic uppercase tracking-tight text-blue-700 dark:text-blue-400">
+                <CardTitle className="flex items-center gap-3 text-xl font-bold uppercase tracking-tight text-blue-700 dark:text-blue-400">
                   <LucideIcons.Share2 className="h-6 w-6" />
                   Social Media
                 </CardTitle>
@@ -225,7 +225,7 @@ export default async function ContactLocationsEditorPage() {
                     );
                   })
                 ) : (
-                   <p className="text-sm text-muted-foreground italic">No social links configured.</p>
+                   <p className="text-sm text-muted-foreground">No social links configured.</p>
                 )}
               </CardContent>
             </Card>

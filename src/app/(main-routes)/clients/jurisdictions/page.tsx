@@ -71,10 +71,10 @@ export default async function JurisdictionsEditorPage() {
           </Badge>
 
           <div className="space-y-4">
-            <h1 className="text-5xl font-black tracking-tight leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight leading-tight">
               {initialValues.title}
             </h1>
-            <p className="text-xl text-muted-foreground font-medium italic max-w-3xl">
+            <p className="text-lg text-muted-foreground font-medium max-w-3xl">
               {initialValues.subtitle}
             </p>
           </div>
@@ -88,7 +88,7 @@ export default async function JurisdictionsEditorPage() {
               <div className="p-3 bg-muted rounded-xl">
                 <Globe className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-lg font-black uppercase tracking-wider">
+              <h3 className="text-lg font-bold uppercase tracking-wider">
                 Trademark Services
               </h3>
             </div>
