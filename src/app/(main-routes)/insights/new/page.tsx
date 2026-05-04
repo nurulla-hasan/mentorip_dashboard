@@ -249,7 +249,7 @@ export default function NewInsightPage() {
                         <FormControl>
                           <SelectTrigger className="bg-background">
                             <SelectValue placeholder="Select category" />
-                          </SelectTrigger>
+                          </SelectTrigger> 
                         </FormControl>
                         <SelectContent>
                           {categoryOptions.map((option) => (
@@ -328,7 +328,7 @@ export default function NewInsightPage() {
                   )}
                 />
 
-                <div className="col-span-full mt-2 p-4 rounded-xl border border-primary/20 bg-primary/5 flex items-center justify-between gap-4 transition-all duration-300">
+                <div className="col-span-full mt-2 p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-all duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-primary/10">
                       <Star className={`h-5 w-5 ${isFeatured ? 'fill-primary text-primary' : 'text-muted-foreground'}`} />
@@ -339,7 +339,7 @@ export default function NewInsightPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-6">
+                  <div className="flex flex-wrap items-center gap-4 sm:gap-6 w-full sm:w-auto justify-between sm:justify-end">
                     <FormField
                       control={form.control}
                       name="isFeatured"

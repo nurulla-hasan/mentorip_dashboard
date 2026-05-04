@@ -51,7 +51,7 @@ export default async function JurisdictionsEditorPage() {
 
   return (
     <div className="space-y-12">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <PageHeader
           title="Our Clients - Jurisdictions"
           description="Edit global reach section and service country lists."

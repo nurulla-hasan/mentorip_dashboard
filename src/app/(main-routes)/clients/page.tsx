@@ -11,7 +11,7 @@ export default async function ClientsPage () {
 
   return (
     <div className="space-y-6 p-1">
-      <div className="flex gap-4 flex-col md:flex-row md:items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <PageHeader
           title="Our Clients Management"
           description="Manage client logos and testimonials displayed on the website."

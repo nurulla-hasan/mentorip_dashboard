@@ -20,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ScrollArea, ScrollBar } from "../scroll-area";
 import { DataTablePagination } from "./data-table-pagination";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -85,9 +84,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <ScrollArea className="w-[calc(100vw-32px)] md:w-[calc(100vw-288px)] xl:w-full rounded-md border whitespace-nowrap">
+      <div className="w-full rounded-lg border overflow-x-auto">
         <Table>
-          <TableHeader>
+          <TableHeader className="whitespace-nowrap">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -159,8 +158,7 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
+      </div>
 
       <React.Suspense fallback={null}>
         {meta && (

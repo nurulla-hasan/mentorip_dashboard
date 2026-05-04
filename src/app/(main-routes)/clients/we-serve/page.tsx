@@ -53,7 +53,7 @@ export default async function WeServePage() {
 
   return (
     <div className="space-y-12">
-      <div className="flex flex-col md:flex-row justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <PageHeader
           title="Clients - Industries We Serve"
           description="Edit the industries we serve section (8 cards fixed)."

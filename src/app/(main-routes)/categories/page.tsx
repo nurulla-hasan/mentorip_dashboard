@@ -10,7 +10,7 @@ export default async function CategoriesPage() {
   const { data: categories } = await getAllCategories();
   return (
     <div className="space-y-6 p-1">
-      <div className="flex gap-2 flex-col md:flex-row justify-between">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <PageHeader
           title="Categories"
           description="Manage legal categories, practice area, and tags."
