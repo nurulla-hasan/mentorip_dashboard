@@ -1,4 +1,4 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { getPageByType } from "@/services/pages";
 import { PageContentForm } from "@/components/common/PageContentForm";
 
@@ -8,8 +8,8 @@ export default async function AboutUs() {
   const initialTitle = res?.data?.title || "About Us";
 
   return (
-    <div className="p-2">
-      <PageHeader
+    <div className="p-2 space-y-6">
+      <DashboardHeader
         title="About Us"
         description="Edit the content of your About Us page."
       />

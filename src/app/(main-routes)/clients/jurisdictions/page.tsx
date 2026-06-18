@@ -1,4 +1,4 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { getJurisdictions } from "@/services/client";
 import type { JurisdictionsValues } from "@/types/clients.types";
 import { Badge } from "@/components/ui/badge";
@@ -51,13 +51,12 @@ export default async function JurisdictionsEditorPage() {
 
   return (
     <div className="space-y-12">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <PageHeader
+      <DashboardHeader
           title="Our Clients - Jurisdictions"
           description="Edit global reach section and service country lists."
-        />
+        >
         <JurisdictionsModal initialValues={initialValues} />
-      </div>
+      </DashboardHeader>
 
       {/* Preview Section - Fully Shadcn Themed */}
       <div className="p-8 border rounded-xl bg-card text-card-foreground space-y-12 max-w-4xl mx-auto">

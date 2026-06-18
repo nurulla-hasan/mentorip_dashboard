@@ -4,7 +4,6 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
-
 export default function RootLayoutClient({
   children,
 }: Readonly<{
@@ -27,7 +26,7 @@ export default function RootLayoutClient({
         />
         
         {/* Page Content */}
-        <div className="flex-1 h-[calc(100vh-80px)] p-4 overflow-auto">
+        <div className="flex-1 overflow-auto p-4">
           {children}
         </div>
       </div>

@@ -1,9 +1,9 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 
 export default async function ContentPage() {
   return (
     <div className="space-y-6">
-      <PageHeader
+      <DashboardHeader
         title="Content Management"
         description="Manage homepage banners, footer links, and other static content."
       />

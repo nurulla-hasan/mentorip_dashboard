@@ -1,5 +1,5 @@
 import { WhoWeAreModal } from "@/components/about-us/WhoWeAreModal";
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { getWhoWeAre } from "@/services/about";
 import type { WhoWeAreValues } from "@/types/who-we-are.types";
 
@@ -74,13 +74,12 @@ export default async function WhoWeAreEditorPage() {
 
   return (
     <div className="space-y-12">
-      <div className="flex flex-col md:flex-row justify-between gap-4">
-          <PageHeader
+      <DashboardHeader
             title="About - Who We Are"
             description="Edit title, subtitle, hero image and 4 fixed stats for the About page."
-          />
+          >
           <WhoWeAreModal initialValues={initialValues} />
-      </div>
+      </DashboardHeader>
       <section className="rounded-3xl bg-card p-6 space-y-8 max-w-4xl mx-auto">
         <div className="space-y-3">
           <p className="text-xs font-semibold tracking-[0.35em] text-red-700 uppercase">

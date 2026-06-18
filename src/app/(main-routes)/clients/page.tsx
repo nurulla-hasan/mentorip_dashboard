@@ -1,7 +1,7 @@
 import { AddClientModal } from "@/components/clients/AddClientModal";
 import { clientLogosColumns } from "@/components/clients/columns";
 import { DataTable } from "@/components/ui/custom/data-table";
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { getAllClients } from "@/services/client";
 
 
@@ -11,14 +11,13 @@ export default async function ClientsPage () {
 
   return (
     <div className="space-y-6 p-1">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <PageHeader
-          title="Our Clients Management"
-          description="Manage client logos and testimonials displayed on the website."
-          length={clients.length}
-        />
-        <AddClientModal /> 
-      </div>
+      <DashboardHeader
+        title="Our Clients Management"
+        description="Manage client logos and testimonials displayed on the website."
+        length={clients.length}
+      >
+        <AddClientModal />
+      </DashboardHeader>
 
       <DataTable
         columns={clientLogosColumns}

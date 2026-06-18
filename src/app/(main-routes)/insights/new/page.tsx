@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { Input } from "@/components/ui/input";
 import TiptapEditor from "@/components/ui/custom/tiptap-editor";
 import {
@@ -154,7 +154,7 @@ export default function NewInsightPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
+      <DashboardHeader
         title="Add New Legal Insight"
         description="Add new blog posts, articles, and legal updates."
       />

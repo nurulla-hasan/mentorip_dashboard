@@ -1,4 +1,4 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { getPageByType } from "@/services/pages";
 import { PageContentForm } from "@/components/common/PageContentForm";
 
@@ -8,9 +8,9 @@ export default async function PrivacyPolicy() {
   const initialTitle = res?.data?.title || "Privacy Policy";
 
   return (
-    <div className="p-2">
-      <PageHeader 
-        title="Privacy Policy" 
+    <div className="p-2 space-y-6">
+      <DashboardHeader
+        title="Privacy Policy"
         description="Manage your website's privacy policy and data protection terms."
       />
       

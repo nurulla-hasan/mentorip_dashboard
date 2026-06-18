@@ -75,8 +75,8 @@
   --accent: oklch(0.83 0.11 57.89);
   --accent-foreground: oklch(0.26 0.02 351.79);
   --destructive: oklch(0.61 0.21 22.21);
-  --border: oklch(0.36 0.02 342.33);
-  --input: oklch(0.36 0.02 342.33);
+  --border: oklch(45.02% 0.02032 344.137 / 0.377);
+  --input: oklch(0.45 0.02 342.33);
   --ring: oklch(0.74 0.16 34.57);
   --chart-1: oklch(0.74 0.16 34.57);
   --chart-2: oklch(0.83 0.11 57.89);
@@ -225,4 +225,28 @@
 }
 .dark .ProseMirror td {
   border-color: #374151;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }

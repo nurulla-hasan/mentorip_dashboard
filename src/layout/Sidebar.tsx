@@ -99,7 +99,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
         </div>
 
         {/* Menu Groups */}
-        <ScrollArea className="h-188.5">
+        <ScrollArea className="flex-1">
           <div className="flex-1 px-3 space-y-6 py-4">
             {MENU_GROUPS.map((group: MenuGroup, groupIndex: number) => (
               <div key={groupIndex}>

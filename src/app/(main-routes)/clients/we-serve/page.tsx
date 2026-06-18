@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { WeServeModal } from "@/components/clients/WeServeModal";
 import { DynamicIcon } from "@/components/ui/custom/dynamic-icon";
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { getWeServe } from "@/services/client";
 import { WeServeApiData, WeServeValues, WeServeCard } from "@/types/clients.types";
 
@@ -53,13 +53,12 @@ export default async function WeServePage() {
 
   return (
     <div className="space-y-12">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <PageHeader
+      <DashboardHeader
           title="Clients - Industries We Serve"
           description="Edit the industries we serve section (8 cards fixed)."
-        />
+        >
         <WeServeModal initialValues={initialValues} />
-      </div>
+      </DashboardHeader>
 
       <section className="rounded-3xl bg-card p-6 space-y-8 max-w-6xl mx-auto">
         <div className="space-y-3 text-center">

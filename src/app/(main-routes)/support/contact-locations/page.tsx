@@ -1,4 +1,4 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { ContactLocationsModal } from "@/components/contact/ContactLocationsModal";
 import { DigitalPresenceModal } from "@/components/contact/DigitalPresenceModal";
 import { getOfficeCards, getHotlineAndSocials } from "@/services/contact";
@@ -97,13 +97,12 @@ export default async function ContactLocationsEditorPage() {
   return (
     <div className="space-y-10">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-        <PageHeader
+      <DashboardHeader
           title="Contact Us - Locations"
           description="Edit Global Liaison Offices cards shown on the Contact page."
-        />
+        >
         <ContactLocationsModal initialValues={initialValues} />
-      </div>
+      </DashboardHeader>
 
       {/* Main Content Section - Locations */}
       <section className="space-y-8 max-w-5xl mx-auto bg-card p-6 rounded-3xl">

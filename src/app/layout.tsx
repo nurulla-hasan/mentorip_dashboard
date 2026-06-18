@@ -28,9 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="overflow-hidden">
       <body
-        className={`${poppins.variable} ${geistMono.variable} antialiased font-sans`}
+        className={`${poppins.variable} ${geistMono.variable} antialiased font-sans overflow-hidden`}
       >
         <NextTopLoader
           color="#2299DD"

@@ -1,4 +1,4 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { ProfileHeader } from "@/components/account/ProfileHeader";
 import { ProfileForm } from "@/components/account/ProfileForm";
 import { SecuritySettings } from "@/components/account/SecuritySettings";
@@ -10,7 +10,7 @@ export default async function AccountPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
+      <DashboardHeader
         title="My Account"
         description="Manage your profile information and security settings."
       />

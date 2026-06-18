@@ -1,4 +1,4 @@
-import PageHeader from "@/components/ui/custom/page-header";
+import { DashboardHeader } from "@/components/ui/custom/dashboard-header";
 import { ClienteleModal } from "@/components/clients/CLienteleModal";
 import { getClientele } from "@/services/client";
 import type { ClienteleApiData, ClienteleValues } from "@/types/clients.types";
@@ -42,13 +42,12 @@ export default async function ClienteleEditorPage() {
 
   return (
     <div className="space-y-16">
-      <div className="flex flex-col md:flex-row justify-between gap-4">
-        <PageHeader
+      <DashboardHeader
           title="Our Clients - Clientele"
           description="Edit the clientele intro section, stats, and global names list."
-        />
+        >
         <ClienteleModal initialValues={initialValues} />
-      </div>
+      </DashboardHeader>
 
       <section className="rounded-3xl bg-card p-6 md:p-10 space-y-8 max-w-4xl mx-auto">
         <div className="space-y-3">
