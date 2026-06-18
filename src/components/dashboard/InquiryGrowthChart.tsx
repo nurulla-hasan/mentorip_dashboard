@@ -13,7 +13,7 @@ import { IGrowthSeries } from "@/types/dashboard.types";
 const chartConfig: ChartConfig = {
   users: {
     label: "Monthly Users",
-    color: "#a51d0c", // Vibrant Purple
+    color: "#2563eb", // Blue
   },
 };
 

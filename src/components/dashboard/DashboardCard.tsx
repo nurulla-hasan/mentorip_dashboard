@@ -23,7 +23,7 @@ export default function DashboardCard({ icon: Icon, title, value, change }: Dash
             <h3 className="text-xl font-bold">{value}</h3>
             {change && (
               <Badge 
-                variant={change.startsWith("+") ? "success" : "destructive"}
+                variant={change.startsWith("+") ? "success" : change.startsWith("-") ? "destructive" : "secondary"}
                 className="font-semibold"
               >
                 {change}
