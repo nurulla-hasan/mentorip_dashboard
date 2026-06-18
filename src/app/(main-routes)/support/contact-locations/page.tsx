@@ -3,7 +3,6 @@ import { ContactLocationsModal } from "@/components/contact/ContactLocationsModa
 import { DigitalPresenceModal } from "@/components/contact/DigitalPresenceModal";
 import { getOfficeCards, getHotlineAndSocials } from "@/services/contact";
 import * as LucideIcons from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 interface OfficeCardsApiData {
@@ -105,7 +104,7 @@ export default async function ContactLocationsEditorPage() {
       </DashboardHeader>
 
       {/* Main Content Section - Locations */}
-      <section className="space-y-8 max-w-5xl mx-auto bg-card p-6 rounded-3xl">
+      <section className="max-w-5xl mx-auto w-full">
         {/* Grid Layout */}
         <div className="grid gap-6 md:grid-cols-2">
           {locations.map((location, index) => {
@@ -115,39 +114,40 @@ export default async function ContactLocationsEditorPage() {
             return (
               <div
                 key={`${location.officeName}-${index}`}
-                className="group relative flex flex-col justify-between rounded-[2.5rem] border bg-card p-8 transition-all hover:shadow-lg"
+                className="flex flex-col rounded-3xl border border-border/30 bg-card p-6 md:p-8 transition-shadow hover:shadow-md"
               >
                 {/* Badge & Icon */}
-                <div className="flex items-start justify-between">
-                  <span className="rounded-full bg-red-50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-red-600 dark:bg-red-500/10">
+                <div className="flex items-start justify-between mb-6">
+                  <span className="rounded-full border border-primary/40 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary">
                     {location.badge}
                   </span>
-                  <div className="flex items-center justify-center rounded-2xl bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                  <div className="text-muted-foreground">
                     <IconComponent className="h-5 w-5" />
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="mt-6 space-y-3">
-                  <h3 className="text-2xl font-bold tracking-tight uppercase">
+                <div className="space-y-1.5 mb-5">
+                  <h3 className="text-xl md:text-2xl font-bold text-foreground">
                     {location.officeName}
                   </h3>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                    Key Person: <span className="text-foreground">{location.keyPerson}</span>
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground line-clamp-2">
-                    {location.address}
+                  <p className="text-xs md:text-sm font-bold text-muted-foreground">
+                    Key Person: <span className="text-foreground/90">{location.keyPerson}</span>
                   </p>
                 </div>
+                
+                <p className="text-sm leading-relaxed text-muted-foreground mb-8">
+                  {location.address}
+                </p>
 
                 {/* Footer Info */}
-                <div className="mt-8 space-y-3 border-t pt-6">
-                  <div className="flex items-center gap-3 text-sm font-bold">
-                    <LucideIcons.Phone className="h-4 w-4 text-muted-foreground" />
+                <div className="mt-auto space-y-3">
+                  <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground">
+                    <LucideIcons.Phone className="h-4 w-4" />
                     {location.phone}
                   </div>
-                  <div className="flex items-center gap-3 text-sm font-bold">
-                    <LucideIcons.Mail className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground">
+                    <LucideIcons.Mail className="h-4 w-4" />
                     {location.email}
                   </div>
                 </div>
@@ -158,77 +158,64 @@ export default async function ContactLocationsEditorPage() {
       </section>
 
       {/* Hotlines & Socials Section */}
-      <section className="space-y-8 max-w-5xl mx-auto">
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-border" />
-            <h2 className="text-lg font-bold uppercase tracking-widest text-muted-foreground">
-              {digitalPresenceValues.title}
-            </h2>
-            <div className="h-px flex-1 bg-border" />
-            <DigitalPresenceModal initialValues={digitalPresenceValues} />
+      <section className="max-w-5xl mx-auto w-full pt-8">
+        <div className="flex justify-end mb-4">
+          <DigitalPresenceModal initialValues={digitalPresenceValues} />
+        </div>
+
+        <div className="rounded-3xl border border-border/30 bg-card p-6 md:p-8">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <LucideIcons.MessageCircle className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold text-foreground">
+                Hotline & Socials
+              </h3>
+              <p className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-muted-foreground uppercase mt-1">
+                Stay connected 24/7
+              </p>
+            </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Hotlines Card */}
-            <Card className="rounded-4xl shadow-none bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl font-bold uppercase tracking-tight text-emerald-700 dark:text-emerald-400">
-                  <LucideIcons.PhoneCall className="h-6 w-6" />
-                  Hotlines
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {digitalPresenceValues.hotlines.length > 0 ? (
-                  digitalPresenceValues.hotlines.map((hotline, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-4 bg-white/60 dark:bg-black/20 rounded-2xl backdrop-blur-sm">
-                      <span className="font-bold text-sm text-emerald-800 dark:text-emerald-200">{hotline.label}</span>
-                      <span className="font-mono text-sm text-emerald-600 dark:text-emerald-400">{hotline.value}</span>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-sm text-muted-foreground italic">No hotlines configured.</p>
-                )}
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {digitalPresenceValues.hotlines.map((hotline, idx) => (
+              <div
+                key={`hotline-${idx}`}
+                className="flex items-center justify-between rounded-2xl border border-border/5 bg-background/50 dark:bg-black/20 p-5 transition-colors hover:bg-background/80 dark:hover:bg-black/40"
+              >
+                <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-foreground/90">
+                  {hotline.label}
+                </span>
+                <span className="text-sm font-bold text-primary">
+                  {hotline.value}
+                </span>
+              </div>
+            ))}
 
-            {/* Social Links Card */}
-            <Card className="rounded-4xl shadow-none bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl font-bold uppercase tracking-tight text-blue-700 dark:text-blue-400">
-                  <LucideIcons.Share2 className="h-6 w-6" />
-                  Social Media
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-1 gap-4">
-                {digitalPresenceValues.socialLinks.length > 0 ? (
-                  digitalPresenceValues.socialLinks.map((social, idx) => {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    const SocialIcon = (LucideIcons as any)[social.icon.charAt(0).toUpperCase() + social.icon.slice(1)] || LucideIcons.Link;
-                    
-                    return (
-                      <Link 
-                        key={idx} 
-                        href={social.url}
-                        target="_blank"
-                        className="flex items-center gap-4 p-4 bg-white/60 dark:bg-black/20 rounded-2xl backdrop-blur-sm hover:bg-white/80 dark:hover:bg-black/30 transition-all group"
-                      >
-                        <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
-                          <SocialIcon className="h-5 w-5" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-bold text-sm text-blue-900 dark:text-blue-100">{social.label}</p>
-                          <p className="text-xs text-blue-600/80 dark:text-blue-300/80 truncate">{social.url}</p>
-                        </div>
-                        <LucideIcons.ExternalLink className="h-4 w-4 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </Link>
-                    );
-                  })
-                ) : (
-                   <p className="text-sm text-muted-foreground">No social links configured.</p>
-                )}
-              </CardContent>
-            </Card>
+            {digitalPresenceValues.socialLinks.map((social, idx) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const SocialIcon = (LucideIcons as any)[social.icon.charAt(0).toUpperCase() + social.icon.slice(1)];
+              
+              return (
+                <Link
+                  key={`social-${idx}`}
+                  href={social.url}
+                  target="_blank"
+                  className="flex items-center justify-between rounded-2xl border border-border/5 bg-background/50 dark:bg-black/20 p-5 transition-colors hover:bg-background/80 dark:hover:bg-black/40 group"
+                >
+                  <div className="flex items-center gap-3">
+                    {SocialIcon && <SocialIcon className="h-4 w-4 text-primary" />}
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-foreground/90">
+                      {social.label}
+                    </span>
+                  </div>
+                  <LucideIcons.ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                </Link>
+              );
+            })}
           </div>
+        </div>
       </section>
     </div>
   ); 

@@ -114,8 +114,7 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
 
             if (res.success) {
                 SuccessToast("Insight updated successfully!");
-                router.refresh();
-                // router.push("/insights");
+                router.push("/insights");
             } else {
                 ErrorToast(res.message || "Something went wrong");
             }
@@ -405,7 +404,7 @@ export function EditInsightForm({ post, categories }: EditInsightFormProps) {
                                                                 alt="Preview"
                                                                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                             />
-                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-[2px]">
+                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                                 <Button
                                                                     type="button"
                                                                     variant="destructive"

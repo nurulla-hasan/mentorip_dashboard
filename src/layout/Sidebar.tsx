@@ -171,7 +171,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
                           <DropdownMenuContent
                             side="right"
                             align="start"
-                            className="w-56 ml-2 p-2 bg-background/95 backdrop-blur-sm border shadow-xl rounded-xl"
+                            className="w-56 ml-2 p-2 bg-background/95 border shadow-xl rounded-xl"
                           >
                             <DropdownMenuLabel className="px-3 py-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                               {item.label}

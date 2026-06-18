@@ -8,9 +8,9 @@ import {
   PlusCircle,
   Settings,
   Building2,
-  Globe,
+  // Globe,
   MapPin,
-  Info,
+  // Info,
   Image as ImageIcon,
 } from "lucide-react";
 import { ElementType } from "react";
@@ -62,12 +62,12 @@ export const MENU_GROUPS: MenuGroup[] = [
         children: [
           { label: "Management", href: "/clients", icon: Settings },
           { label: "Clientele", href: "/clients/clientele", icon: Building2 },
-          {
-            label: "Jurisdictions",
-            href: "/clients/jurisdictions",
-            icon: Globe,
-          },
-          { label: "We Serve", href: "/clients/we-serve", icon: Users },
+          // {
+          //   label: "Jurisdictions",
+          //   href: "/clients/jurisdictions",
+          //   icon: Globe,
+          // },
+          // { label: "We Serve", href: "/clients/we-serve", icon: Users },
         ],
       },
       { icon: Users, label: "Team & Lawyers", href: "/team" },
@@ -76,7 +76,7 @@ export const MENU_GROUPS: MenuGroup[] = [
   {
     title: "Firm Presentation",
     items: [
-      { label: "Who We Are", href: "/about-us/who-we-are", icon: Info },
+      // { label: "Who We Are", href: "/about-us/who-we-are", icon: Info },
       {
         icon: LifeBuoy,
         label: "Support Desk",
