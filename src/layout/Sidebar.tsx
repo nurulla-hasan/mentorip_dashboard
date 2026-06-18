@@ -77,7 +77,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
         )}
       >
         {/* Logo Section */}
-        <div className="flex items-center justify-between p-4 h-24">
+        <div className="flex items-center justify-between p-4 h-20 border-b">
           {!isCollapsed && (
             <Link href="/" className="flex items-center w-full px-2 group">
               <img
@@ -99,7 +99,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
         </div>
 
         {/* Menu Groups */}
-        <ScrollArea className="flex-1">
+        <ScrollArea className="flex-1 overflow-auto">
           <div className="flex-1 px-3 space-y-6 py-4">
             {MENU_GROUPS.map((group: MenuGroup, groupIndex: number) => (
               <div key={groupIndex}>
