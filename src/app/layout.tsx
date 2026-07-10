@@ -37,7 +37,7 @@ export default function RootLayout({
           height={3}
           showSpinner={false}
         />
-        <Toaster position="bottom-right" richColors />
+        <Toaster position="bottom-right" richColors theme="system" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      // Insight cover images are submitted through a multipart Server Action.
+      bodySizeLimit: "10mb",
+    },
+  },
   images: {
     remotePatterns: [
       {

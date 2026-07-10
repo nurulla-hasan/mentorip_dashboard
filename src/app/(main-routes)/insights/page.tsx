@@ -12,10 +12,21 @@ import { SearchParams } from "@/types/global.types";
 export default async function InsightsPage({ searchParams }: { searchParams: SearchParams }) {
   const params = await searchParams;
 
-  const [{ data: posts, meta }, { data: categories }] = await Promise.all([
+  const [postsResponse, categoriesResponse] = await Promise.all([
     getAllPosts(params),
     getAllCategories({ limit: "100" }),
   ]);
+
+  const posts = Array.isArray(postsResponse.data) ? postsResponse.data : [];
+  const categories = Array.isArray(categoriesResponse.data)
+    ? categoriesResponse.data
+    : [];
+  const meta = postsResponse.meta ?? {
+    total: posts.length,
+    page: 1,
+    limit: 10,
+    totalPages: 0,
+  };
 
   return (
     <div className="space-y-6 p-1">
@@ -26,7 +37,7 @@ export default async function InsightsPage({ searchParams }: { searchParams: Sea
       >
         <div className="flex items-center gap-2">
           <StatusFilter />
-          <CategoryFilter categories={categories || []} />
+          <CategoryFilter categories={categories} />
           <CommonSearch />
         </div>
       </DashboardHeader>
