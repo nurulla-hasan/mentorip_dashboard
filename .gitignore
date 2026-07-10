@@ -35,6 +35,7 @@ pnpm-lock.yaml
 pnpm-workspace.yaml
 
 # env files (can opt-in for committing if needed)
+.env*
 
 # vercel
 .vercel
@@ -42,4 +43,3 @@ pnpm-workspace.yaml
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-config.bat
